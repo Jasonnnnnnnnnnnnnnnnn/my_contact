@@ -13,11 +13,25 @@ class _AddContactWidgetState extends State<AddContactWidget> {
   final _formkey = GlobalKey<FormState>();
   
  late TextEditingController nameController;
+ 
+ late TextEditingController phoneController;
+  
+late TextEditingController emailController;
  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     nameController = TextEditingController();
+    phoneController = TextEditingController();
+    emailController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    phoneController.dispose();
+    emailController.dispose();
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -37,6 +51,28 @@ class _AddContactWidgetState extends State<AddContactWidget> {
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter name';
+                }
+                return null;
+              },
+            ),
+            TextFormField(
+              controller: phoneController,
+              decoration: InputDecoration(
+                  labelText: 'phone', border: OutlineInputBorder()),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter phone';
+                }
+                return null;
+              },
+            ),
+TextFormField(
+              controller: emailController,
+              decoration: InputDecoration(
+                  labelText: 'Email', border: OutlineInputBorder()),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter email';
                 }
                 return null;
               },
