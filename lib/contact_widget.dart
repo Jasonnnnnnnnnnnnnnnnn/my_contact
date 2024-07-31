@@ -9,7 +9,7 @@ class ContactWidget extends StatefulWidget {
 }
 
 class _ContactWidgetState extends State<ContactWidget> {
-  List<Contact> contact = [
+  List<Contact> contacts = [
     Contact(
         id: 1,
         name: 'Contact1',
@@ -17,22 +17,22 @@ class _ContactWidgetState extends State<ContactWidget> {
         email: 'contact1@mail.com'),
     Contact(
         id: 2,
-        name: 'Contact1',
+        name: 'Contact2',
         phone: '088888882',
         email: 'contact2@mail.com'),
     Contact(
         id: 3,
-        name: 'Contact1',
+        name: 'Contact3',
         phone: '088888883',
         email: 'contact3@mail.com'),
     Contact(
         id: 4,
-        name: 'Contact1',
+        name: 'Contact4',
         phone: '088888884',
         email: 'contact4@mail.com'),
     Contact(
         id: 5,
-        name: 'Contact1',
+        name: 'Contact5',
         phone: '088888885',
         email: 'contact5@mail.com'),
   ];
@@ -42,8 +42,13 @@ class _ContactWidgetState extends State<ContactWidget> {
         appBar: AppBar(
           title: Text('My Contact'),
         ),
-        body: Center(
-          child: Text('My contact'),
+        body: ListView.builder(
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(contacts[index].name),
+            );
+          },
+          itemCount: contacts.length,
         ));
   }
 }
