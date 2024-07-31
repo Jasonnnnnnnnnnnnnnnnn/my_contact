@@ -11,13 +11,13 @@ class AddContactWidget extends StatefulWidget {
 
 class _AddContactWidgetState extends State<AddContactWidget> {
   final _formkey = GlobalKey<FormState>();
-  
- late TextEditingController nameController;
- 
- late TextEditingController phoneController;
-  
-late TextEditingController emailController;
- @override
+
+  late TextEditingController nameController;
+
+  late TextEditingController phoneController;
+
+  late TextEditingController emailController;
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -33,6 +33,7 @@ late TextEditingController emailController;
     emailController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +56,9 @@ late TextEditingController emailController;
                 return null;
               },
             ),
+            SizedBox(
+              height: 16,
+            ),
             TextFormField(
               controller: phoneController,
               decoration: InputDecoration(
@@ -66,7 +70,10 @@ late TextEditingController emailController;
                 return null;
               },
             ),
-TextFormField(
+            SizedBox(
+              height: 16,
+            ),
+            TextFormField(
               controller: emailController,
               decoration: InputDecoration(
                   labelText: 'Email', border: OutlineInputBorder()),
@@ -76,6 +83,18 @@ TextFormField(
                 }
                 return null;
               },
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (_formkey.currentState!.validate()) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text('Process Data')));
+                }
+              },
+              child: Text('Add contact'),
             )
           ],
         ),
