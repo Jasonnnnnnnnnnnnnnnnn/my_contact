@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_contact/add_contact_widget.dart';
 import 'package:my_contact/contact.dart';
 
 class ContactWidget extends StatefulWidget {
@@ -36,6 +37,12 @@ class _ContactWidgetState extends State<ContactWidget> {
         phone: '088888885',
         email: 'contact5@mail.com'),
   ];
+  void addContact(Contact contact) {
+    setState(() {
+      contacts.add(contact);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +69,15 @@ class _ContactWidgetState extends State<ContactWidget> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context) {
+              return AddContactWidget(
+                addContact: addContact,
+              );
+            },
+          ));
+        },
       ),
     );
   }
