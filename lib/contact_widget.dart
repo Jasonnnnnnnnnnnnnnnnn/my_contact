@@ -47,6 +47,8 @@ class _ContactWidgetState extends State<ContactWidget> {
     });
   }
 
+ 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,6 +86,21 @@ class _ContactWidgetState extends State<ContactWidget> {
                     ));
               },
             ),
+            onTap: () {
+              Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditContactWidget(
+                        contact: contacts[index],
+                        editContact: (contact) {
+                          setState(() {
+                            contacts[index] = contact;
+                          });
+                        },
+                      ),
+                    ));
+              
+            },
           );
         },
         itemCount: contacts.length,
