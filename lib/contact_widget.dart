@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_contact/add_contact_widget.dart';
 import 'package:my_contact/contact.dart';
+import 'package:my_contact/edit_contact_widget.dart';
 
 class ContactWidget extends StatefulWidget {
   const ContactWidget({Key? key}) : super(key: key);
@@ -37,8 +38,11 @@ class _ContactWidgetState extends State<ContactWidget> {
         phone: '088888885',
         email: 'contact5@mail.com'),
   ];
+  int lastId = 6;
+
   void addContact(Contact contact) {
     setState(() {
+      contact.id = lastId;
       contacts.add(contact);
     });
   }
@@ -62,6 +66,23 @@ class _ContactWidgetState extends State<ContactWidget> {
                 Text(contacts[index].phone),
                 Text(contacts[index].email)
               ],
+            ),
+            trailing: IconButton(
+              icon: Icon(Icons.edit),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditContactWidget(
+                        contact: contacts[index],
+                        editContact: (contact) {
+                          setState(() {
+                            contacts[index] = contact;
+                          });
+                        },
+                      ),
+                    ));
+              },
             ),
           );
         },

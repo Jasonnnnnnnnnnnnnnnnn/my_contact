@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:my_contact/contact.dart';
 
-class AddContactWidget extends StatefulWidget {
-  final Function(Contact contact) addContact;
-  const AddContactWidget({Key? key,  required this.addContact}) : super(key: key);
+class EditContactWidget extends StatefulWidget {
+  final Function(Contact contact) editContact;
+  final Contact contact;
+  const EditContactWidget(
+      {Key? key, required this.contact, required this.editContact})
+      : super(key: key);
 
   @override
-  _AddContactWidgetState createState() => _AddContactWidgetState();
+  _EditContactWidgetState createState() => _EditContactWidgetState();
 }
 
-class _AddContactWidgetState extends State<AddContactWidget> {
+class _EditContactWidgetState extends State<EditContactWidget> {
   final _formkey = GlobalKey<FormState>();
 
   late TextEditingController nameController;
@@ -23,9 +26,9 @@ class _AddContactWidgetState extends State<AddContactWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    nameController = TextEditingController();
-    phoneController = TextEditingController();
-    emailController = TextEditingController();
+    nameController = TextEditingController(text: widget.contact.name);
+    phoneController = TextEditingController(text: widget.contact.phone);
+    emailController = TextEditingController(text: widget.contact.email);
   }
 
   @override
@@ -40,7 +43,7 @@ class _AddContactWidgetState extends State<AddContactWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add New Contact'),
+        title: Text('Edit New Contact'),
       ),
       body: Form(
         key: _formkey,
@@ -63,6 +66,7 @@ class _AddContactWidgetState extends State<AddContactWidget> {
             ),
             TextFormField(
               controller: phoneController,
+              
               decoration: InputDecoration(
                   labelText: 'phone', border: OutlineInputBorder()),
               validator: (value) {
@@ -77,6 +81,7 @@ class _AddContactWidgetState extends State<AddContactWidget> {
             ),
             TextFormField(
               controller: emailController,
+             
               decoration: InputDecoration(
                   labelText: 'Email', border: OutlineInputBorder()),
               validator: (value) {
@@ -93,12 +98,16 @@ class _AddContactWidgetState extends State<AddContactWidget> {
               onPressed: () {
                 if (_formkey.currentState!.validate()) {
                   Navigator.pop(context);
-                  widget.addContact(Contact(id: -1, name: nameController.text, phone: phoneController.text, email: emailController.text));
+                  widget.editContact(Contact(
+                      id: widget.contact.id,
+                      name: nameController.text,
+                      phone: phoneController.text,
+                      email: emailController.text));
                   ScaffoldMessenger.of(context)
                       .showSnackBar(SnackBar(content: Text('Process Data')));
                 }
               },
-              child: Text('Add contact'),
+              child: Text('Edit contact'),
             )
           ],
         ),
