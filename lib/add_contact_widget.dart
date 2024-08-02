@@ -99,6 +99,7 @@ class _AddContactWidgetState extends State<AddContactWidget> {
                 }
               },
               child: Text('Add contact'),
+              
             )
           ],
         ),
